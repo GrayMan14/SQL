@@ -1,0 +1,41 @@
+CREATE TABLE movies (id INTEGER PRIMARY KEY,release_year integer, name TEXT,rating text,genre text,subgenre text, store_price INTEGER, wholesale_price INTEGER, qty_on_hand INTEGER, number_on_order INTEGER);
+
+INSERT INTO movies VALUES
+(1,2005, 'war of the worlds','pg-13','sci_fi','action',2.75,2.00,10,0),
+(2,1995,'tall tale','pg','fantasy','western',2.00,0.75,2,1),
+(3,1990,'pretty woman','r','romance','comedy',4.30,3.00,15,0),
+(4,2002,'spiderman','pg-13','action','fantasy',7.15,4.50,9,2),
+(5,2008,'iron man','pg-13','action','adventure', 7.20,5.00,20,0),
+(6,2010,'how to train your dragon','pg','fantasy','adventure',7.75,4.60,0,15),
+(7,1999,'pokemon 2000','g','adventure','fantasy', 5.47,2.10,3,1),
+(8,1998,'the mask of zoro','pg-13','adventure','action',3.75,1.90,19,0),
+(9,2010,'iron man 2','pg-13','action','adventure',8.00,5.35,24,0),
+(10,2013,'iron man 3','pg-13','action','adventure',8.00,5.50,13,0),
+(11,2000,'dungeons_and dragons','pg-13','fantasy','adventure',2.25,0.90,15,0),
+(12,2004,'spiderman 2','pg-13','action','adventure',3.00,1.10,0,5),
+(13,2014,'how to train your dragon 2','pg','action','adventure',6.50,3.75,16,0),
+(14,2001,'jason x','r','horror','sci_fi',8.15,2.50,4,4),
+(15,2003,'freddy vs jason','r','horror','action', 10.00,5.80,2,4),
+(16,2005,'must love dogs','pg-13','romance','comedy', 4.35,1.90,1,2),
+(17,1998,'halloweentown','no rating','family','fantasy',6.25,4.50,6,1),
+(18,2001,'halloweentown 2','no rating','fantasy','fantasy',6.00,4.00,1,3),
+(19,2006,'tales from earthsea','pg-13','fantasy','adventure', 12.00,6.75,1,8);
+(20,2014,'seventh son','pg-13','fantasy','adventure',2.00,0.75,17,0);
+
+SELECT * FROM movies ORDER BY release_year;
+   
+SELECT name,rating FROM movies;
+
+  --What are the movies carried after release year 2000?
+SELECT * FROM movies WHERE release_year >=2000
+ORDER BY release_year ASC;
+
+  --How much gains are we to possibly recieve?
+SELECT sum(store_price) FROM movies;
+SELECT sum(wholesale_price)FROM movies;
+
+  --What movies are we almost out of stock?
+SELECT name,qty_on_hand,number_on_order FROM movies WHERE qty_on_hand <= 5; 
+
+  --What movies are the cheapest for customers?
+SELECT *FROM movies ORDER BY store_price
