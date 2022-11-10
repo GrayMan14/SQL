@@ -1,0 +1,103 @@
+CREATE TABLE actor (id INTEGER PRIMARY KEY, name TEXT, gender TEXT, age INTEGER, partner TEXT NULL, famous_for TEXT);
+
+INSERT INTO actor VALUES
+(1,'johnny_depp','M',59,NULL,'pirates of the carribean'),
+(2,'will smith','M',54,'jada smith','wild wild west'),
+(3,'sandra bullock','F',58,'bryan randall','the proposal'),
+(4,'jackie chan','M',68,'joan lin','rush hour'),
+(5,'chris tucker','M',51,'azaja pryor','rush hour'),
+(6,'scarlet johanson','F',37,'ryan renolds','the avengers'),
+(7,'ryan renolds','M',46,'scarlet johanson','deadpool'),
+(8,'Viggo Mortensen','M',64,NULL,'lord of the rings'),
+(9,'Morena Baccarin','F',43,'ben mckenzie','deadpool'),
+(10,'T.J. Miller','M',41,'kate miller','deadpool'),
+(11,'Orlando Bloom','M',45,'miranda kerr','lord of the rings'),
+(12,'Elijah Wood','M',41,'mette-marie kongsved','lord of the rings'),
+(13,'Bill Skarsgard','M',32,NULL,'it'),
+(14,'Kevin Kline','M',75,'phoebe cates','wild wild west'),
+(15,'Salma Hayek','F',56,NULL,'wild wild west');
+
+CREATE TABLE singer (id INTEGER PRIMARY KEY,name TEXT,age INTEGER, partner TEXT NULL, hit_song TEXT, song_year INTEGER, album_num INTEGER, movie_id INTEGER NULL);
+
+INSERT INTO singer VALUES
+(1,'will smith',54,'jada smith','wild wild west',1999,5,3),
+(2,'madonna',64,NULL,'like a virgin',1984,14,NULL),
+(3,'indina menzel',51,NULL,'into the unknown',2019,8,NULL),
+(4,'howard shore',76,'Elizabeth Cotnoir','many meetings',2001,0,2),
+(5,'Adele',34,'Simon Konecki','rolling in the deep',2011,19,NULL),
+(6,'phil collins',71,NULL,'youll be in my heart',1999,8,6);
+
+
+CREATE TABLE author (id INTEGER PRIMARY KEY,name TEXT, age TEXT, title TEXT, partner TEXT NULL, movie_id TEXT NULL);
+
+INSERT INTO author VALUES
+(1,'stephen king',75,'it',NULL,5),
+(2, 'j.r.r.tolkien',81,'lord of the rings','Edith Tolkien',2),
+(3,'mark twain',74,'adventures of huckleberry finn',NULL,NULL),
+(4,'j.r.r.tolkien',81,'beowolf','Edith Tolkien',1),
+(5,'agatha christie',85,'10 little indians',NULL,NULL);
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY,year INTEGER, name TEXT, book_authorid INTEGER NULL, actor1_id INTEGER, actor2_id INTEGER NULL, actor3_id INTEGER NULL,singer1_id INTEGER NULL,singer2_id INTEGER NULL, singer3_id INTEGER NULL);
+
+INSERT INTO movies VALUES
+(1,2007,'beowolf',4,10,NULL,NULL,NULL,NULL,NULL),
+(2,2001,'lord of the rings',6,8,NULL,NULL,4,NULL,NULL),
+(3,1999,'wild wild west',NULL,2,NULL,NULL,1,NULL,NULL),
+(4,2016,'deadpool',NULL,7,9,10,NULL,NULL,NULL),
+(5,2017,'it',1,50,NULL,NULL,NULL,NULL,NULL),
+(6,1999,'tarzan',NULL,NULL,NULL,NULL,6,NULL,NULL),
+(7,1998,'rush hour',NULL,4,5,NULL,NULL,NULL,NULL),
+(8,2013,'frozen',NULL,NULL,NULL,NULL,3,NULL,NULL),
+(9,2012,'the avengers','stan lee',6,NULL,NULL,NULL,NULL,NULL),
+(10,2021,'free guy',NULL,7,NULL,NULL,NULL,NULL,NULL),
+(11,2003,'one upon a time in mexico',NULL,1,15,NULL,NULL,NULL,NULL),
+(12,2003,'pirates of the carribean',NULL,1,11,NULL,NULL,NULL,NULL),
+(13,2012,'the hobbit',2,12,11,NULL,NULL,NULL,NULL),
+(14,2009,'the proposal',NULL,3,7,NULL,NULL,NULL,NULL),
+(15,2001,'moulin rouge',NULL,NULL,NULL,NULL,2,NULL,NULL);
+
+                --Who are the main actors in the movie Rush Hour?--
+                
+SELECT m.name AS Movie, a1.name AS Main_Actor, a2.name AS Sub_Actor
+    FROM movies as m
+        JOIN actor as a1
+    on m.actor1_id = a1.id
+        JOIN actor as a2
+    ON m.actor2_id = a2.id
+        WHERE m.name = 'rush hour';
+
+                --Who was the artist in the movie?--
+                
+SELECT s.name AS Artist, m.name AS Movie
+    FROM movies AS m
+        LEFT OUTER JOIN singer AS s
+    ON m.singer1_id =s.id
+    GROUP BY Movie; 
+
+                --Name authors books?--
+                
+SELECT name AS author,title
+    FROM author
+        GROUP BY name;
+
+                --Which actors played in which movies?--
+
+SELECT name,age, famous_for
+    FROM actor
+        ORDER BY famous_for;
+
+                 --5 oldest actors?--
+
+SELECT name,age,gender
+    FROM actor
+        ORDER BY age DESC
+            LIMIT 5;
+            
+                 --5 youngest actors?--
+            
+SELECT name,age,gender
+    from actor
+        ORDER BY age
+            LIMIT 5;
+            
+            
