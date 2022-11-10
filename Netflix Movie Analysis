@@ -1,0 +1,51 @@
+# In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+
+            --A list of when director's released their movie's or tv shows.--   
+            
+SELECT 
+people.show_id
+,people.director
+,title.title
+,title.release_year
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
+        JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info"  title
+            ON people.show_id=title.show_id
+        LIMIT 5;
+              
+              --Total movie title count, excluding tv shows.--
+
+SELECT COUNT(title.type) 
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
+        WHERE type='Movie';
+
+              --Most recent movies and tv shows entered into the database.--
+
+SELECT title.title
+,title.date_added
+,title.type
+    FROM  "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
+        LIMIT 5 ;
+        
+              --Alphabetical order of all movies and tv shows in this database.--
+ 
+SELECT title.title
+    FROM  "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
+        GROUP BY title.title
+            ORDER BY title.title;
+
+              --Who directed the movie Bright Star?--
+             
+SELECT people.director
+,title.title
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
+        JOIN  "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
+            ON people.show_id=title.show_id
+                WHERE title = 'Bright Star';
+
+              --Oldest movie in the database and what year it was released.--
+
+SELECT title.release_year
+,title.title
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
+        ORDER BY title.release_year 
+            LIMIT 1;
