@@ -120,4 +120,72 @@ SELECT Product,SUM(quantity*price) AS Revenue
             ORDER BY SUM(quantity*price) desc
                 LIMIT 1;
                 
-        
+                
+                ******
+                
+                
+For the data entry below, I downloaded Spotify data from Kaggle.
+I added a table to insert the below Spotify data into.
+I performed multiple analytics on the data using SQL.
+
+
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL );
+
+-What was added to the previous table?-
+
+SELECT * FROM BIT_DB.Spotifydata;
+
+-What are the top 5 most popular artists and their songs?-
+
+SELECT artist_name,track_name,popularity
+    FROM BIT_DB.Spotifydata
+        WHERE popularity >  80 
+            ORDER BY popularity DESC
+                LIMIT 5;
+                
+-What are the least favorite artist and their song titles?-
+
+SELECT artist_name,track_name,popularity
+    FROM BIT_DB.Spotifydata 
+            ORDER BY popularity 
+                LIMIT 5;
+                
+-Who plays the longest song?-                
+                
+SELECT artist_name,track_name,duration_ms AS duration
+    FROM BIT_DB.Spotifydata
+        ORDER BY duration DESC
+            LIMIT 1;
+            
+-Who plays the shortest song?-            
+            
+SELECT artist_name,track_name,duration_ms AS duration
+    FROM BIT_DB.Spotifydata
+        ORDER BY duration 
+            LIMIT 1;
+            
+-What is the average dancability,energy and length of playtime?-            
+            
+SELECT AVG(danceability),AVG(energy),AVG(duration_ms),AVG(tempo)
+    FROM BIT_DB.Spotifydata;
+    
+
+    
